@@ -105,8 +105,31 @@ iframe {
     </div>
   </div>
 
+
   <div class="card">
-    <h2>📈 Power BI Dashboard</h2>
+  <h2>📊 Power BI Portfolio</h2>
+  <p>Business dashboards & analytics cases</p>
+
+  <button onclick="toggleBI1()">Sales Dashboard</button>
+  <button onclick="toggleBI2()">Supply Chain</button>
+
+  <!-- BI 1 -->
+  <div id="bi1" class="hidden">
+    <h3>Sales Performance Analysis</h3>
+    <p>Analyzed regional sales trends, identified top-performing categories.</p>
+
+    <iframe src="https://app.powerbi.com/view?r=YOUR_LINK_1"></iframe>
+  </div>
+
+  <!-- BI 2 -->
+  <div id="bi2" class="hidden">
+    <h3>Supply Chain Optimization</h3>
+    <p>Improved inventory visibility and reduced reporting delay.</p>
+
+    <iframe src="https://app.powerbi.com/view?r=YOUR_LINK_2"></iframe>
+  </div>
+</div>
+
     <button onclick="toggleBI()">Open Dashboard</button>
 
     <div id="bi" class="hidden">
@@ -124,6 +147,15 @@ function toggleCase() {
 
 function toggleBI() {
   var x = document.getElementById("bi");
+  x.style.display = (x.style.display === "block") ? "none" : "block";
+}
+function toggleBI1() {
+  var x = document.getElementById("bi1");
+  x.style.display = (x.style.display === "block") ? "none" : "block";
+}
+
+function toggleBI2() {
+  var x = document.getElementById("bi2");
   x.style.display = (x.style.display === "block") ? "none" : "block";
 }
 </script>
