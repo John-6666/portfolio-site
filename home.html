@@ -5,12 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zuko Liao | Portfolio</title>
 <style>
+  :root {
+    --oppo-green: #00ad5d;
+    --bg-dark: #050505;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+
   body { 
     margin: 0; 
-    font-family: 'Inter', -apple-system, sans-serif; 
-    background: #000; 
+    font-family: 'Inter', 'Segoe UI', sans-serif; 
+    background-color: var(--bg-dark);
+    /* OPPO风格：深色放射状渐变，增加深邃感 */
+    background-image: radial-gradient(circle at 50% -20%, #1a1a1a 0%, #050505 80%);
     color: white; 
     overflow-x: hidden; 
+    line-height: 1.6;
+  }
+
+  /* 模拟官网的背景微光 */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); /* 极微弱纹理 */
+    opacity: 0.03;
+    pointer-events: none;
   }
 
   .section { 
@@ -19,69 +39,97 @@
     flex-direction: column; 
     justify-content: center; 
     align-items: center; 
-    padding: 40px 20px;
+    padding: 60px 20px;
+    box-sizing: border-box;
   }
 
-  /* 第一屏：聚焦感 */
+  /* 第一屏：聚焦感 + 渐变文字 */
   .hero h1 { 
-    font-size: 80px; 
-    margin-bottom: 10px;
-    transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1); 
+    font-size: clamp(48px, 8vw, 90px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+    background: linear-gradient(180deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1); 
   }
-  .hero.show h1 { transform: scale(1.05); }
+  .hero.show h1 { transform: scale(1.08); }
+  .hero p { font-size: 20px; color: #aaa; letter-spacing: 2px; text-transform: uppercase; }
 
   /* 通用浮现 */
-  .fade { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+  .fade { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
   .fade.show { opacity: 1; transform: translateY(0); }
 
+  /* 第二/三屏：玻璃拟态卡片滑上来 */
   .card { 
-    background: #111; padding: 40px; border-radius: 24px; 
-    border: 1px solid #222; max-width: 600px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px); /* 磨砂玻璃 */
+    -webkit-backdrop-filter: blur(20px);
+    padding: 50px; 
+    border-radius: 32px; 
+    border: 1px solid var(--glass-border); 
+    max-width: 700px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease;
   }
+  .card:hover { transform: translateY(-5px); border-color: var(--oppo-green); }
 
-  /* BI 加载逻辑 */
+  /* BI 加载区域：模拟产品弹出 */
   #bi { 
-    width: 90%; max-width: 1000px; overflow: hidden; 
-    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); 
+    width: 95%; max-width: 1100px; overflow: hidden; 
+    transition: all 1s cubic-bezier(0.86, 0, 0.07, 1); 
     max-height: 0; opacity: 0;
+    border-radius: 24px;
+    box-shadow: 0 0 40px rgba(0, 173, 93, 0.2);
   }
-  #bi.active { max-height: 800px; opacity: 1; margin-top: 30px; }
+  #bi.active { max-height: 800px; opacity: 1; margin-top: 40px; }
 
   button { 
-    padding: 16px 32px; border-radius: 999px; border: none; 
-    background: #fff; color: #000; cursor: pointer; font-weight: 600; 
-    margin-top: 20px; transition: transform 0.2s;
+    padding: 18px 40px; border-radius: 999px; border: none; 
+    background: var(--oppo-green); color: #fff; cursor: pointer; 
+    font-weight: 600; font-size: 16px;
+    margin-top: 20px; transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 173, 93, 0.3);
   }
-  button:hover { transform: scale(1.05); }
+  button:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 173, 93, 0.4); }
   
   iframe { 
-    width: 100%; height: 600px; border: none; border-radius: 16px; 
-    background: #000;
+    width: 100%; height: 650px; border: none; 
+    background: #fdfdfd; /* PBI面板通常背景较浅 */
   }
+
+  h2 { font-size: 42px; margin-bottom: 30px; }
+  .accent { color: var(--oppo-green); }
 </style>
 </head>
 <body>
 
 <div class="section hero fade">
   <h1>Zuko Liao</h1>
-  <p>Turning Data into Business Decisions</p>
+  <p>Data <span class="accent">•</span> Systems <span class="accent">•</span> Impact</p>
 </div>
 
 <div class="section fade">
-  <h1>Data. Systems. Impact.</h1>
-  <p>I design analytics solutions that solve real business problems.</p>
-</div>
-
-<div class="section fade">
-  <h1>Experience</h1>
+  <h2>Design Intelligence.</h2>
   <div class="card">
-    <h3>Business Analyst @ L'Oréal</h3>
-    <p>Focused on data automation, reporting efficiency, and system optimization.</p>
+    <p style="font-size: 24px; color: #eee; margin: 0;">
+      I design analytics solutions that solve <span class="accent">real business problems</span> through high-performance data architecture.
+    </p>
   </div>
 </div>
 
 <div class="section fade">
-  <h1>Power BI Portfolio</h1>
+  <h2>Experience</h2>
+  <div class="card">
+    <h3 style="font-size: 28px; margin-top: 0;">Business Analyst @ L'Oréal</h3>
+    <p style="color: #bbb; font-size: 18px;">Focused on data automation, reporting efficiency, and global system optimization. Driving decisions through clarity.</p>
+  </div>
+</div>
+
+<div class="section fade">
+  <h2>Interactive Portfolio</h2>
+  <p style="color: #888;">Click to explore the digital ecosystem</p>
   <button id="biBtn" onclick="toggleBI()">Launch Dashboard</button>
   <div id="bi">
     <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYjMyZmViODEtYWY4Mi00MzcwLWFhODYtNWExNWRjN2I3ZjZlIiwidCI6ImZlNjhmY2Y5LTI2MGEtNDgxZi1iNjAzLWIyNGNiMjA0MjIyMiIsImMiOjZ9&pageName=ReportSection45a35629207192d9414b" allowFullScreen="true"></iframe>
@@ -89,21 +137,30 @@
 </div>
 
 <script>
-// 滚动检测
+// 滚动显示逻辑
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('show');
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
   });
-}, { threshold: 0.2 });
+}, { threshold: 0.15 });
 
 document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 
-// BI 加载交互
+// BI 加载交互效果
 function toggleBI() {
   const bi = document.getElementById('bi');
   const btn = document.getElementById('biBtn');
   bi.classList.toggle('active');
-  btn.innerText = bi.classList.contains('active') ? 'Hide Dashboard' : 'Launch Dashboard';
+  
+  if (bi.classList.contains('active')) {
+    btn.innerText = 'Close Experience';
+    btn.style.background = '#333';
+  } else {
+    btn.innerText = 'Launch Dashboard';
+    btn.style.background = 'var(--oppo-green)';
+  }
 }
 </script>
 </body>
