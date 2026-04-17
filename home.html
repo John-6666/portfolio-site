@@ -3,224 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
-
+<title>Zuko Liao | Portfolio</title>
 <style>
-  /* 滚动缩放标题 */
-.hero h1 {
-  font-size: 64px;
-  transition: transform 0.3s ease;
-}
+  body { 
+    margin: 0; 
+    font-family: 'Inter', -apple-system, sans-serif; 
+    background: #000; 
+    color: white; 
+    overflow-x: hidden; 
+  }
 
-/* 滚动时放大 */
-.hero.zoom h1 {
-  transform: scale(1.2);
-}
+  .section { 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 40px 20px;
+  }
 
-/* 卡片浮动 */
-.card {
-  background: #111;
-  padding: 30px;
-  border-radius: 20px;
-  max-width: 800px;
-  margin-top: 20px;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-  opacity: 0;
-  transform: translateY(50px);
-}
+  /* 第一屏：聚焦感 */
+  .hero h1 { 
+    font-size: 80px; 
+    margin-bottom: 10px;
+    transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1); 
+  }
+  .hero.show h1 { transform: scale(1.05); }
 
-/* 卡片出现 */
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+  /* 通用浮现 */
+  .fade { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+  .fade.show { opacity: 1; transform: translateY(0); }
 
-/* BI 动画 */
-#bi iframe {
-  transform: scale(0.95);
-  opacity: 0;
-  transition: 0.6s;
-}
+  .card { 
+    background: #111; padding: 40px; border-radius: 24px; 
+    border: 1px solid #222; max-width: 600px;
+  }
 
-#bi.show iframe {
-  transform: scale(1);
-  opacity: 1;
-}
+  /* BI 加载逻辑 */
+  #bi { 
+    width: 90%; max-width: 1000px; overflow: hidden; 
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); 
+    max-height: 0; opacity: 0;
+  }
+  #bi.active { max-height: 800px; opacity: 1; margin-top: 30px; }
+
+  button { 
+    padding: 16px 32px; border-radius: 999px; border: none; 
+    background: #fff; color: #000; cursor: pointer; font-weight: 600; 
+    margin-top: 20px; transition: transform 0.2s;
+  }
+  button:hover { transform: scale(1.05); }
   
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #000;
-  color: white;
-}
-
-/* SECTION */
-.section {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-/* HERO */
-.hero h1 {
-  font-size: 64px;
-  margin: 0;
-}
-
-.hero p {
-  font-size: 22px;
-  color: #aaa;
-}
-
-/* FADE ANIMATION */
-.fade {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: 1s;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* CARD */
-.card {
-  background: #111;
-  padding: 30px;
-  border-radius: 20px;
-  max-width: 800px;
-  margin-top: 20px;
-}
-
-/* BUTTON */
-button {
-  margin-top: 20px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  border: none;
-  background: white;
-  color: black;
-  cursor: pointer;
-}
-
-/* BI */
-iframe {
-  width: 100%;
-  height: 400px;
-  border: none;
-  margin-top: 20px;
-  border-radius: 12px;
-}
+  iframe { 
+    width: 100%; height: 600px; border: none; border-radius: 16px; 
+    background: #000;
+  }
 </style>
 </head>
-
 <body>
 
-<!-- HERO -->
 <div class="section hero fade">
-  <h1>Your Name</h1>
+  <h1>Zuko Liao</h1>
   <p>Turning Data into Business Decisions</p>
 </div>
 
-<!-- VALUE -->
 <div class="section fade">
   <h1>Data. Systems. Impact.</h1>
   <p>I design analytics solutions that solve real business problems.</p>
 </div>
 
-<!-- EXPERIENCE -->
 <div class="section fade">
-  <h1>L'Oréal Buycoor</h1>
+  <h1>Experience</h1>
   <div class="card">
-    <p>Business Analyst</p>
+    <h3>Business Analyst @ L'Oréal</h3>
     <p>Focused on data automation, reporting efficiency, and system optimization.</p>
   </div>
 </div>
 
-<!-- CASE STORY -->
-<div class="section fade">
-  <h1>Case Study</h1>
-  <div class="card">
-    <p><b>Supply Chain Optimization</b></p>
-    <p>Reduced reporting time by 35%</p>
-    <p>Improved data visibility across teams</p>
-
-    <button onclick="toggleCase()">View Details</button>
-
-    <div id="case" style="display:none;">
-      <p>Built automated dashboards to replace manual Excel workflows.</p>
-    </div>
-  </div>
-</div>
-
-<!-- BI SHOWCASE -->
 <div class="section fade">
   <h1>Power BI Portfolio</h1>
-
-  <button onclick="toggleBI()">Launch Dashboard</button>
-
-  <div id="bi" style="display:none; width:80%;">
-    <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYjMyZmViODEtYWY4Mi00MzcwLWFhODYtNWExNWRjN2I3ZjZlIiwidCI6ImZlNjhmY2Y5LTI2MGEtNDgxZi1iNjAzLWIyNGNiMjA0MjIyMiIsImMiOjZ9&pageName=ReportSection45a35629207192d9414b"></iframe>
+  <button id="biBtn" onclick="toggleBI()">Launch Dashboard</button>
+  <div id="bi">
+    <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYjMyZmViODEtYWY4Mi00MzcwLWFhODYtNWExNWRjN2I3ZjZlIiwidCI6ImZlNjhmY2Y5LTI2MGEtNDgxZi1iNjAzLWIyNGNiMjA0MjIyMiIsImMiOjZ9&pageName=ReportSection45a35629207192d9414b" allowFullScreen="true"></iframe>
   </div>
-</div>
-
-<!-- END -->
-<div class="section fade">
-  <h1>Thank You</h1>
-  <p>Let’s build something impactful together.</p>
 </div>
 
 <script>
-// fade 动画
-const faders = document.querySelectorAll('.fade');
-const cards = document.querySelectorAll('.card');
-const hero = document.querySelector('.hero');
-
-const observer = new IntersectionObserver(entries => {
+// 滚动检测
+const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('show');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('show');
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.2 });
 
-faders.forEach(el => observer.observe(el));
-cards.forEach(el => observer.observe(el));
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 
-// hero 缩放效果
-window.addEventListener("scroll", () => {
-  let scrollY = window.scrollY;
-
-  if (scrollY > 50) {
-    hero.classList.add("zoom");
-  } else {
-    hero.classList.remove("zoom");
-  }
-});
-
-// 按钮交互
-function toggleCase() {
-  var x = document.getElementById("case");
-  x.style.display = (x.style.display === "block") ? "none" : "block";
-}
-
+// BI 加载交互
 function toggleBI() {
-  var x = document.getElementById("bi");
-
-  if (x.style.display === "block") {
-    x.style.display = "none";
-    x.classList.remove("show");
-  } else {
-    x.style.display = "block";
-    setTimeout(() => x.classList.add("show"), 50);
-  }
+  const bi = document.getElementById('bi');
+  const btn = document.getElementById('biBtn');
+  bi.classList.toggle('active');
+  btn.innerText = bi.classList.contains('active') ? 'Hide Dashboard' : 'Launch Dashboard';
 }
 </script>
-
 </body>
 </html>
