@@ -7,6 +7,36 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
+ /* ── 新增：下载按钮样式 ── */
+  .hero-actions { margin-top: 32px; display: flex; gap: 16px; justify-content: center; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #000; padding: 12px 32px;
+    border-radius: 999px; text-decoration: none; font-weight: 700;
+    font-size: 14px; transition: all 0.3s cubic-bezier(0.2,1,0.3,1);
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 25px var(--accent-dim); filter: brightness(1.1); }
+  
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--text); padding: 12px 32px;
+    border-radius: 999px; text-decoration: none; font-weight: 600;
+    font-size: 14px; border: 1px solid var(--border-bright);
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { background: var(--surface); border-color: var(--text); }
+  
+  .download-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .dl-card { 
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
+    border-radius: 12px; padding: 15px; text-align: center; 
+    text-decoration: none; transition: all 0.3s;
+  }
+  .dl-card:hover { border-color: var(--accent); background: var(--accent-dim); }
+  .dl-icon { font-size: 20px; margin-bottom: 5px; display: block; }
+  .dl-label { font-size: 11px; color: var(--muted-mid); font-weight: 500; }
+ 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --accent: #00C87A;
@@ -219,6 +249,16 @@
         <span class="pill">SAP Key User</span>
         <span class="pill">SQL · Python · VBA</span>
         <span class="pill"><span class="t-zh">全英文工作环境</span><span class="t-en" style="display:none">Full English Work Environment</span></span>
+      </div>
+    </div>
+   <div class="reveal d4">
+      <div class="hero-actions">
+        <a href="廖祖伟的简历_中文版.pdf" class="btn-primary t-zh" download>
+          <span>下载个人简历</span>
+        </a>
+        <a href="Zuko_Liao_Resume_EN.pdf" class="btn-primary t-en" download style="display:none">
+          <span>Download Resume</span>
+        </a>
       </div>
     </div>
   </div>
