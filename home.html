@@ -1,228 +1,241 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zuko Liao | 数字化财务专家</title>
+<title>Zuko Liao | Business Analyst Portfolio</title>
 <style>
   :root {
-    --oppo-green: #00ad5d;
-    --apple-gray: #f5f5f7;
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --primary: #00ad5d;
+    --bg: #050505;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
   }
 
   body { 
     margin: 0; 
-    font-family: 'SF Pro Display', 'Inter', -apple-system, sans-serif; 
-    background-color: #000;
-    /* 苹果风格的高雅渐变背景：模拟柔和的灯光 */
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(26, 43, 34, 0.5) 0, transparent 50%),
-      radial-gradient(at 50% 0%, rgba(30, 30, 30, 1) 0, transparent 80%),
-      radial-gradient(at 100% 0%, rgba(0, 173, 93, 0.15) 0, transparent 50%);
-    background-attachment: fixed;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; 
+    background-color: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 80%);
     color: white; 
     overflow-x: hidden; 
+    scroll-behavior: smooth;
   }
 
-  /* 通用容器 */
   .section { 
     min-height: 100vh; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
     align-items: center; 
-    padding: 80px 20px;
+    padding: 60px 20px; 
     box-sizing: border-box;
-    scroll-snap-align: start;
+    text-align: center;
   }
 
   /* 动画基类 */
-  .fade { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+  .fade { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 1, 0.3, 1); }
   .fade.show { opacity: 1; transform: translateY(0); }
 
-  /* 第一页：个人优势优化 */
-  .hero h1 { 
-    font-size: clamp(40px, 8vw, 80px); 
-    font-weight: 700; 
-    letter-spacing: -2px;
-    margin-bottom: 10px;
-    background: linear-gradient(180deg, #fff 0%, #aaa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .tagline { font-size: 20px; color: var(--oppo-green); letter-spacing: 4px; margin-bottom: 40px; }
+  /* 第一屏：Hero */
+  .hero h1 { font-size: clamp(48px, 8vw, 80px); margin: 0; transition: transform 0.8s ease; background: linear-gradient(180deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero.zoom h1 { transform: scale(1.05); }
+  .hero p { font-size: 20px; color: #888; letter-spacing: 1px; margin-top: 15px; }
+  .hero .highlight { color: var(--primary); font-weight: 600; }
+
+  /* 第二屏：KPI 网格 */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 900px; width: 100%; margin-top: 40px; }
+  .kpi-card { background: var(--card-bg); border: 1px solid var(--border); padding: 30px; border-radius: 24px; backdrop-filter: blur(10px); }
+  .kpi-number { font-size: 48px; font-weight: bold; margin: 0; color: #fff; }
+  .kpi-label { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+  .kpi-group-title { font-size: 18px; color: var(--primary); margin-bottom: 15px; font-weight: bold; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+
+  /* 第三屏：案例卡片 */
+  .card-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 1000px; width: 100%; }
+  .case-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 30px; width: 100%; max-width: 450px; text-align: left; transition: 0.3s; }
+  .case-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+  .case-card h3 { font-size: 24px; margin-top: 0; color: #fff; }
   
-  .advantage-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    max-width: 1000px;
-    width: 100%;
-  }
-  .adv-item {
-    background: var(--glass-bg);
-    padding: 25px;
-    border-radius: 20px;
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-  }
-  .adv-item h4 { color: var(--oppo-green); margin-top: 0; }
+  .details { display: none; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; color: #bbb; line-height: 1.6; animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* 第二/三页：滑动切换效果 */
-  .slider-container {
-    width: 100%;
-    max-width: 900px;
-    overflow-x: auto;
-    display: flex;
-    gap: 30px;
-    padding: 20px 0;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* 隐藏滚动条 */
-  }
-  .slider-container::-webkit-scrollbar { display: none; }
+  /* 按钮交互 */
+  button { background: #fff; color: #000; border: none; padding: 12px 24px; border-radius: 999px; cursor: pointer; font-weight: 600; transition: all 0.3s; margin-top: 15px; }
+  button:hover { background: var(--primary); color: #fff; transform: scale(1.05); }
 
-  .slide-card {
-    min-width: 100%;
-    scroll-snap-align: center;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 32px;
-    padding: 40px;
-    box-sizing: border-box;
-  }
+  /* PBI iframe */
+  #bi-wrap { display: none; width: 100%; max-width: 1100px; animation: fadeIn 0.8s ease; }
+  iframe { width: 100%; height: 600px; border: none; border-radius: 16px; margin-top: 20px; background: #111; }
 
-  /* 标题样式 */
-  h2 { font-size: 36px; margin-bottom: 40px; font-weight: 600; }
-  .company-name { color: var(--oppo-green); font-size: 24px; font-weight: bold; }
-  .job-title { font-size: 18px; color: #888; margin-bottom: 20px; }
-
-  /* 第四页：BI展示 */
-  #bi { 
-    width: 95%; max-width: 1100px; overflow: hidden; 
-    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1); 
-    max-height: 0; opacity: 0;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  }
-  #bi.active { max-height: 800px; opacity: 1; margin-top: 30px; }
-
-  button { 
-    padding: 18px 45px; border-radius: 999px; border: none; 
-    background: #fff; color: #000; cursor: pointer; font-weight: 600;
-    transition: all 0.3s;
-  }
-  button:hover { transform: scale(1.05); background: var(--oppo-green); color: #fff; }
-
-  iframe { width: 100%; height: 600px; border: none; background: #fff; }
-
-  .scroll-hint { color: #555; font-size: 14px; margin-top: 15px; }
+  .hint { position: fixed; bottom: 20px; width: 100%; text-align: center; color: #555; font-size: 12px; pointer-events: none; }
 </style>
 </head>
 <body>
 
-<div class="section hero fade">
+<div class="section hero fade" id="sec1">
   <h1>Zuko Liao</h1>
-  <div class="tagline">数字化财务专家 | CICPA</div>
-  <div class="advantage-grid">
-    <div class="adv-item">
-      <h4>跨国企管理经验</h4>
-      <p>9年+ 财务经验，历经欧莱雅、松下等世界500强，精通全英文工作环境。</p>
+  <p>Business Analyst turning data into <span class="highlight">business decisions.</span></p>
+  <p style="font-size: 16px; margin-top: 30px;">9+ Years Finance & Analytics • Power BI • Business Partnering</p>
+</div>
+
+<div class="section fade" id="sec2">
+  <h2 style="font-size: 36px;">Measurable Impact.</h2>
+  <p style="color: #888;">Bridging the gap between cost efficiency and revenue growth.</p>
+  
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-group-title">Cost Control</div>
+      <div class="kpi-number"><span class="counter" data-target="75">0</span>% ↓</div>
+      <div class="kpi-label">Reporting Time</div>
     </div>
-    <div class="adv-item">
-      <h4>全栈数字化技能</h4>
-      <p>精通 Power BI, SQL, Python, VBA。能独立构建从数据底层到决策层的前端看板。</p>
+    <div class="kpi-card">
+      <div class="kpi-group-title">Accuracy</div>
+      <div class="kpi-number"><span class="counter" data-target="0">10</span></div>
+      <div class="kpi-label">Manual Errors</div>
     </div>
-    <div class="adv-item">
-      <h4>深度业务伙伴(BP)</h4>
-      <p>擅长产品生命周期盈利分析、供应链成本优化及千万级预算精细化管控。</p>
+    <div class="kpi-card">
+      <div class="kpi-group-title">Scale</div>
+      <div class="kpi-number"><span class="counter" data-target="134">0</span>+</div>
+      <div class="kpi-label">Projects Tracked</div>
+    </div>
+    
+    <div class="kpi-card">
+      <div class="kpi-group-title">Revenue Growth</div>
+      <div class="kpi-number">+<span class="counter" data-target="22">0</span>%</div>
+      <div class="kpi-label">SME Customers</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-group-title">Penetration</div>
+      <div class="kpi-number"><span class="counter" data-target="71">0</span>%</div>
+      <div class="kpi-label">Product Coverage</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-group-title">Deployment</div>
+      <div class="kpi-number">National</div>
+      <div class="kpi-label">Channel Scale</div>
     </div>
   </div>
 </div>
 
-<div class="section fade">
-  <h2>工作经历</h2>
-  <div class="slider-container">
-    <div class="slide-card">
-      <div class="company-name">欧莱雅百库 (2022/06 - 至今)</div>
-      <div class="job-title">财务部 - Controller</div>
-      <ul>
-        <li>负责供应链及EBA板块3500万预算监控。</li>
-        <li>作为核心BP管理47+关键PO，处理年度96笔跨国转售交易。</li>
-        <li>担任SAP NEO, Compass等核心系统关键用户。</li>
-      </ul>
+<div class="section fade" id="sec3">
+  <h2 style="font-size: 36px;">How I Solved It.</h2>
+  
+  <div class="card-container">
+    <div class="case-card">
+      <div style="color: var(--primary); font-size: 14px; font-weight: bold; margin-bottom: 10px;">EFFICIENCY & AUTOMATION</div>
+      <h3>Cost Control Intelligence</h3>
+      <button onclick="toggleElement('case1')">View Details</button>
+      <div id="case1" class="details">
+        <p><strong style="color:#fff;">Problem:</strong> Cost tracking across 100+ administrative projects was manual, slow, and error-prone.</p>
+        <p><strong style="color:#fff;">Action:</strong> Built an automated PO vs. Actual tracking system and integrated it into a Power BI dashboard.</p>
+        <p><strong style="color:#fff;">Impact:</strong> Reduced reporting time by 75%, eliminated errors, and scaled monitoring to 134+ projects with real-time visibility.</p>
+      </div>
     </div>
-    <div class="slide-card">
-      <div class="company-name">三七互娱 (2021/02 - 2022/05)</div>
-      <div class="job-title">财务分析师</div>
-      <ul>
-        <li>建立新产品生命周期盈利模型，支持产品上线回收决策。</li>
-        <li>优化管理报表体系，提升业务决策可视度。</li>
-      </ul>
-    </div>
-    <div class="slide-card">
-      <div class="company-name">好来化工 (2019/03 - 2021/02)</div>
-      <div class="job-title">业务分析主管</div>
-      <ul>
-        <li>利用Power BI建立日常运营仪表盘，运用DAX建立多元分析模型。</li>
-        <li>运用VBA优化工作流，领导区域毛利分析与费用控制。</li>
-      </ul>
+
+    <div class="case-card">
+      <div style="color: var(--primary); font-size: 14px; font-weight: bold; margin-bottom: 10px;">GROWTH & STRATEGY</div>
+      <h3>Channel Growth Intelligence</h3>
+      <button onclick="toggleElement('case2')">View Details</button>
+      <div id="case2" class="details">
+        <p><strong style="color:#fff;">Problem:</strong> Limited visibility on regional performance and channel effectiveness hindered sales growth.</p>
+        <p><strong style="color:#fff;">Action:</strong> Engineered a KPI tracking framework and real-time Power BI simulation model to monitor distributor performance.</p>
+        <p><strong style="color:#fff;">Impact:</strong> Drove a 22% growth in SME customers and achieved 71% core product coverage across national channels.</p>
+      </div>
     </div>
   </div>
-  <div class="scroll-hint">← 左右滑动查看更多 →</div>
 </div>
 
-<div class="section fade">
-  <h2>核心项目</h2>
-  <div class="slider-container">
-    <div class="slide-card">
-      <div class="company-name">SAP HANA 系统升级 (2024 - 2025)</div>
-      <p><strong>角色：</strong> 关键用户 (Key User)</p>
-      <p>深度参与从S4向HANA版本的重大转型，主导UAT测试与全员赋能培训，实现业务零中断平稳上线。</p>
-    </div>
-    <div class="slide-card">
-      <div class="company-name">全国批发渠道KPI管控</div>
-      <p><strong>成果：</strong> 中小型客户增长22%，主推产品铺货率达71%。</p>
-      <p>运用SQL抽取BW大数据，并建立Power BI实时模拟模型，驱动渠道下沉与结构合理化。</p>
-    </div>
-  </div>
-  <div class="scroll-hint">← 左右滑动查看项目 →</div>
-</div>
-
-<div class="section fade">
-  <h2>Interactive Portfolio</h2>
-  <p style="color: #888; margin-bottom: 30px;">点击下方按钮开启 Power BI 经营分析交互体验</p>
-  <button id="biBtn" onclick="toggleBI()">启动仪表盘</button>
-  <div id="bi">
+<div class="section fade" id="sec4">
+  <h2 style="font-size: 36px;">Digital Ecosystem.</h2>
+  <p style="color: #888;">Interactive dashboard demonstration.</p>
+  <button onclick="toggleElement('bi-wrap')">Launch BI Dashboard</button>
+  
+  <div id="bi-wrap">
     <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYjMyZmViODEtYWY4Mi00MzcwLWFhODYtNWExNWRjN2I3ZjZlIiwidCI6ImZlNjhmY2Y5LTI2MGEtNDgxZi1iNjAzLWIyNGNiMjA0MjIyMiIsImMiOjZ9&pageName=ReportSection45a35629207192d9414b" allowFullScreen="true"></iframe>
   </div>
 </div>
 
+<div class="hint">Press ⬇️ (Down Arrow) to Present</div>
+
 <script>
-// 滚动显示逻辑
+// 1. 滚动与显隐控制 (Intersection Observer)
+const faders = document.querySelectorAll('.fade');
+const hero = document.querySelector('.hero');
+let animatedCounters = false;
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('show');
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      
+      // 触发 KPI 动画
+      if (entry.target.id === 'sec2' && !animatedCounters) {
+        runCounters();
+        animatedCounters = true;
+      }
+    }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.3 });
 
-document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+faders.forEach(el => observer.observe(el));
 
-// BI 加载交互
-function toggleBI() {
-  const bi = document.getElementById('bi');
-  const btn = document.getElementById('biBtn');
-  bi.classList.toggle('active');
-  
-  if (bi.classList.contains('active')) {
-    btn.innerText = '关闭体验';
-    bi.scrollIntoView({ behavior: 'smooth' });
-  } else {
-    btn.innerText = '启动仪表盘';
-  }
+// Hero 缩放特效
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) hero.classList.add("zoom");
+  else hero.classList.remove("zoom");
+});
+
+// 2. KPI 数字跳动动画
+function runCounters() {
+  const counters = document.querySelectorAll('.counter');
+  const speed = 200; 
+
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      
+      // 递增逻辑 / 递减逻辑 (针对 Error 数量下降)
+      let inc = target > count ? target / speed : -1;
+      if (inc > 0 && inc < 1) inc = 1;
+      
+      if ((target > count && count < target) || (target < count && count > target)) {
+        counter.innerText = Math.ceil(count + inc);
+        setTimeout(updateCount, 20);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCount();
+  });
 }
+
+// 3. 通用切换函数 (Case 1, Case 2, BI)
+function toggleElement(id) {
+  const el = document.getElementById(id);
+  el.style.display = (el.style.display === "block") ? "none" : "block";
+  if(el.style.display === "block") el.scrollIntoView({behavior: "smooth", block: "nearest"});
+}
+
+// 4. 键盘箭头滚动控制 (演示神器)
+let currentSection = 0;
+const sections = document.querySelectorAll('.section');
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (currentSection < sections.length - 1) {
+      currentSection++;
+      sections[currentSection].scrollIntoView({ behavior: 'smooth' });
+    }
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (currentSection > 0) {
+      currentSection--;
+      sections[currentSection].scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+});
 </script>
 </body>
 </html>
