@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>廖祖伟 Zuko Liao | Business Analyst & Financial Controller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   ROOT & RESET
+════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --accent:       #00C87A;
+  --accent-dim:   rgba(0,200,122,0.12);
+  --accent-glow:  rgba(0,200,122,0.25);
+  --bg:           #060608;
+  --surface:      rgba(255,255,255,0.04);
+  --surface-hi:   rgba(255,255,255,0.07);
+  --border:       rgba(255,255,255,0.07);
+  --border-bright:rgba(255,255,255,0.14);
+  --text:         #F0F0F2;
+  --muted:        #555;
+  --muted-mid:    #999;
+  --font-head:    'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ════════════════════════════════════════
+   GLOBAL APPLE-STYLE BACKGROUNDS
+════════════════════════════════════════ */
+
+/* Dot-grid texture (Apple-style) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+/* Aurora orbs canvas wrapper */
+#aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0;
+  animation: orbFloat linear infinite;
+  will-change: transform, opacity;
+}
+.orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,200,122,0.18) 0%, transparent 70%);
+  top: -200px; left: -100px;
+  animation-duration: 22s; animation-delay: 0s;
+}
+.orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(88,86,214,0.14) 0%, transparent 70%);
+  top: 30%; right: -150px;
+  animation-duration: 28s; animation-delay: -8s;
+}
+.orb-3 {
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,200,122,0.08) 0%, transparent 70%);
+  bottom: -200px; left: 25%;
+  animation-duration: 35s; animation-delay: -15s;
+}
+.orb-4 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(100,160,255,0.10) 0%, transparent 70%);
+  top: 15%; left: 40%;
+  animation-duration: 20s; animation-delay: -5s;
+}
+.orb-5 {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, rgba(88,86,214,0.09) 0%, transparent 70%);
+  bottom: 20%; right: 10%;
+  animation-duration: 30s; animation-delay: -20s;
+}
+
+@keyframes orbFloat {
+  0%   { opacity: 0; transform: translate(0,0) scale(1); }
+  10%  { opacity: 1; }
+  50%  { transform: translate(60px, -80px) scale(1.15); }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(0,0) scale(1); }
+}
+
+/* Ensure all content sits above backgrounds */
+section, #lang-toggle, #side-nav, #hint, #progress-bar {
+  position: relative;
+  z-index: 1;
+}
+
+/* ════════════════════════════════════════
+   PROGRESS BAR
+════════════════════════════════════════ */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 1.5px;
+  background: linear-gradient(90deg, var(--accent), rgba(0,200,122,0.4));
+  z-index: 300;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ════════════════════════════════════════
+   LANGUAGE TOGGLE
+════════════════════════════════════════ */
+#lang-toggle {
+  position: fixed; top: 24px; left: 28px; z-index: 200;
+  display: flex; align-items: center;
+  background: rgba(10,10,14,0.7);
+  border: 1px solid var(--border-bright);
+  border-radius: 999px; padding: 4px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.lang-btn {
+  font-family: var(--font-body); font-size: 12px; font-weight: 600;
+  letter-spacing: 1px; padding: 6px 16px; border-radius: 999px;
+  border: none; cursor: pointer; background: transparent;
+  color: var(--muted); transition: all 0.3s;
+}
+.lang-btn.active {
+  background: var(--accent); color: #000;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+/* ════════════════════════════════════════
+   SIDE NAV DOTS
+════════════════════════════════════════ */
+#side-nav {
+  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 10px;
+}
+.dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  border: none; padding: 0;
+}
+.dot.active {
+  background: var(--accent);
+  transform: scale(2);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+.dot:hover { background: var(--muted-mid); transform: scale(1.5); }
+
+/* ════════════════════════════════════════
+   HINT
+════════════════════════════════════════ */
+#hint {
+  position: fixed; bottom: 20px; width: 100%; text-align: center;
+  color: var(--muted); font-size: 11px; letter-spacing: 1.5px;
+  pointer-events: none; z-index: 99;
+}
+
+/* ════════════════════════════════════════
+   SECTIONS
+════════════════════════════════════════ */
+section {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 80px 40px;
+  overflow: hidden;
+}
+section + section { border-top: 1px solid var(--border); }
+.section-inner { width: 100%; max-width: 1000px; }
+
+/* ════════════════════════════════════════
+   REVEAL ANIMATION
+════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(0.2,1,0.3,1), transform 0.9s cubic-bezier(0.2,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}
+.reveal.d3{transition-delay:.3s}.reveal.d4{transition-delay:.4s}.reveal.d5{transition-delay:.5s}
+
+/* ════════════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════════════ */
+.section-label {
+  font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px; font-weight: 500;
+}
+h1, h2, h3 { font-family: var(--font-head); }
+.section-title {
+  font-size: clamp(34px, 4.5vw, 54px);
+  font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 14px;
+  /* Apple-style subtle gradient on headers */
+  background: linear-gradient(160deg, #ffffff 0%, #c0c0c8 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-sub {
+  font-size: 17px; color: var(--muted-mid); max-width: 540px;
+  font-weight: 300; line-height: 1.75; margin-bottom: 44px;
+}
+
+/* ════════════════════════════════════════
+   HERO SECTION
+════════════════════════════════════════ */
+#hero {
+  text-align: center;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(0,200,122,0.07) 0%, transparent 70%);
+}
+/* Hero cinematic beam */
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px; height: 40%;
+  background: linear-gradient(to bottom, transparent, rgba(0,200,122,0.3), transparent);
+  pointer-events: none;
+}
+.hero-name {
+  font-size: clamp(58px, 10.5vw, 108px);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1;
+  background: linear-gradient(160deg, #ffffff 0%, #c8c8d0 60%, #888 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 4px;
+  filter: drop-shadow(0 0 40px rgba(0,200,122,0.12));
+}
+.hero-en {
+  font-size: clamp(16px,2.2vw,26px); font-weight: 400;
+  color: var(--muted); letter-spacing: 6px; margin-bottom: 28px;
+  text-transform: uppercase;
+}
+.hero-tagline {
+  font-size: clamp(14px,1.7vw,18px); color: var(--muted-mid);
+  font-weight: 300; max-width: 500px; margin: 0 auto 44px; line-height: 1.9;
+}
+.hero-pills {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  margin-bottom: 40px;
+}
+.pill {
+  border: 1px solid var(--border-bright);
+  border-radius: 999px; padding: 7px 16px;
+  font-size: 12px; color: var(--muted-mid);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+}
+.pill:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.pill.accent {
+  border-color: var(--accent); color: var(--accent);
+  background: var(--accent-dim);
+  box-shadow: 0 0 16px rgba(0,200,122,0.15);
+}
+
+/* Hero download button */
+.hero-actions { display: flex; gap: 14px; justify-content: center; margin-top: 8px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--accent); color: #000;
+  padding: 12px 28px; border-radius: 999px;
+  text-decoration: none; font-weight: 700; font-size: 14px;
+  transition: all 0.35s cubic-bezier(0.2,1,0.3,1);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 24px rgba(0,200,122,0.2);
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(0,200,122,0.35);
+  filter: brightness(1.08);
+}
+
+/* Scroll cue */
+.scroll-cue {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--muted); font-size: 10px; letter-spacing: 2px;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+.scroll-arrow {
+  width: 16px; height: 16px;
+  border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted);
+  transform: rotate(45deg);
+}
+@keyframes pulse { 0%,100%{opacity:.2} 50%{opacity:.65} }
+
+/* ════════════════════════════════════════
+   GLASS CARD BASE (Apple glassmorphism)
+════════════════════════════════════════ */
+.glass-card {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+}
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.glass-card:hover {
+  border-color: rgba(0,200,122,0.25);
+  box-shadow: 0 0 0 1px rgba(0,200,122,0.08), 0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+
+/* ════════════════════════════════════════
+   TIMELINE
+════════════════════════════════════════ */
+.timeline { position: relative; margin-top: 44px; }
+.timeline::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:1px;
+  background: linear-gradient(to bottom, transparent, rgba(0,200,122,0.3) 20%, rgba(0,200,122,0.2) 80%, transparent);
+}
+.tl-item {
+  display:grid; grid-template-columns:155px 1fr;
+  gap:24px; padding:26px 0 26px 28px;
+  position:relative; border-bottom:1px solid var(--border);
+  transition: opacity 0.3s;
+}
+.tl-item:last-child { border-bottom:none; }
+.tl-item::before {
+  content:''; position:absolute; left:-4px; top:34px;
+  width:8px; height:8px; border-radius:50%;
+  background: rgba(255,255,255,0.15);
+  border:2px solid var(--bg);
+  transition: box-shadow 0.4s, background 0.4s;
+}
+.tl-item.current::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0,200,122,0.15), 0 0 16px rgba(0,200,122,0.4);
+}
+.tl-meta { text-align:right; }
+.tl-period { font-size:11px; color:var(--muted); margin-bottom:4px; }
+.tl-company { font-size:12px; color:var(--muted-mid); font-weight:500; }
+.tl-role { font-family:var(--font-head); font-size:19px; font-weight:600; margin-bottom:7px; color: var(--text); }
+.tl-desc { font-size:13px; color:var(--muted); line-height:1.8; margin-bottom:8px; }
+.tl-highlight { font-size:12px; color:var(--accent); font-weight:500; margin-bottom:8px; }
+.tl-tags { display:flex; flex-wrap:wrap; gap:5px; }
+.tag {
+  font-size:10px; padding:3px 9px; border-radius:5px;
+  background: rgba(255,255,255,0.04); border:1px solid var(--border);
+  color:var(--muted-mid); letter-spacing:0.3px;
+}
+
+/* ════════════════════════════════════════
+   KPI / IMPACT
+════════════════════════════════════════ */
+#impact {
+  background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(0,200,122,0.04) 0%, transparent 65%);
+}
+.kpi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px; }
+.kpi-card {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border:1px solid var(--border);
+  border-radius:20px; padding:26px;
+  position:relative; overflow:hidden;
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.35s;
+}
+.kpi-card::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+}
+.kpi-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform:scaleX(0); transform-origin:center;
+  transition:transform 0.9s cubic-bezier(0.2,1,0.3,1);
+}
+.kpi-card.lit {
+  border-color: rgba(0,200,122,0.18);
+  box-shadow: 0 0 40px rgba(0,200,122,0.05), inset 0 0 40px rgba(0,200,122,0.02);
+}
+.kpi-card.lit::after { transform:scaleX(1); }
+.kpi-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,122,0.15); }
+.kpi-cat { font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+.kpi-num {
+  font-family:var(--font-head); font-size:clamp(36px,4vw,52px);
+  font-weight:700; color:#fff; line-height:1; margin-bottom:6px;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.06));
+}
+.kpi-label { font-size:12px; color:var(--muted); }
+
+/* ════════════════════════════════════════
+   CASE STUDIES
+════════════════════════════════════════ */
+.case-layout { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start; margin-top:44px; }
+.case-block {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  border:1px solid var(--border);
+  border-radius:14px; padding:20px; margin-bottom:14px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.case-block::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+}
+.case-block:last-child { margin-bottom:0; }
+.case-block:hover { border-color: rgba(0,200,122,0.2); }
+.case-block-label { font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+.case-block p { font-size:13px; color:var(--muted-mid); line-height:1.8; }
+
+.metric-row {
+  display:flex; align-items:center; gap:14px;
+  padding:16px 20px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px);
+  border:1px solid var(--border);
+  border-radius:14px; margin-bottom:10px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  position: relative; overflow: hidden;
+}
+.metric-row::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background: var(--accent); opacity:0;
+  transition: opacity 0.3s;
+}
+.metric-row:last-child { margin-bottom:0; }
+.metric-row:hover {
+  border-color: rgba(0,200,122,0.25);
+  transform: translateX(4px);
+  box-shadow: -4px 0 20px rgba(0,200,122,0.08);
+}
+.metric-row:hover::before { opacity: 1; }
+.metric-icon {
+  width:38px; height:38px; border-radius:10px;
+  background: rgba(0,200,122,0.08);
+  border:1px solid rgba(0,200,122,0.2);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-size:16px;
+}
+.metric-val { font-family:var(--font-head); font-size:21px; font-weight:700; color:var(--accent); line-height:1; }
+.metric-desc { font-size:11px; color:var(--muted); margin-top:2px; }
+
+/* ════════════════════════════════════════
+   TECH / SKILLS
+════════════════════════════════════════ */
+.skills-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:44px; }
+.skill-category {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border:1px solid var(--border);
+  border-radius:20px; padding:26px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+.skill-category::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+.skill-category:hover { border-color: rgba(0,200,122,0.18); box-shadow: 0 8px 40px rgba(0,0,0,0.3); }
+.skill-cat-title { font-family:var(--font-head); font-size:14px; font-weight:600; margin-bottom:18px; color: var(--text); }
+.skill-item { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.skill-item:last-child { margin-bottom:0; }
+.skill-name { font-size:13px; color:var(--muted-mid); display:flex; align-items:center; gap:7px; }
+.skill-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; box-shadow: 0 0 5px var(--accent); }
+.skill-bar-wrap { width:110px; height:2px; background: rgba(255,255,255,0.07); border-radius:2px; overflow:hidden; }
+.skill-bar {
+  height:100%; border-radius:2px; width:0%;
+  background: linear-gradient(90deg, var(--accent), rgba(0,200,122,0.6));
+  transition:width 1.4s cubic-bezier(0.2,1,0.3,1);
+  box-shadow: 0 0 8px rgba(0,200,122,0.4);
+}
+.certs-row { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:17px; }
+.cert-item {
+  background: rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:10px; padding:12px;
+  display:flex; align-items:center; gap:9px;
+  transition: border-color 0.3s;
+}
+.cert-item:hover { border-color: rgba(0,200,122,0.25); }
+.cert-icon {
+  width:26px; height:26px; border-radius:7px;
+  background: rgba(0,200,122,0.1);
+  display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;
+}
+.cert-name { font-size:12px; color:var(--muted-mid); font-weight:500; }
+.cert-sub { font-size:10px; color:var(--muted); margin-top:2px; }
+.lang-row { display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; }
+.lang-row:last-child { border-bottom:none; }
+.lang-name { color:var(--muted-mid); }
+.lang-stars { display:flex; gap:3px; }
+.star { width:7px; height:7px; border-radius:50%; background: rgba(255,255,255,0.1); }
+.star.lit { background:var(--accent); box-shadow:0 0 6px rgba(0,200,122,0.5); }
+
+/* ════════════════════════════════════════
+   POWER BI SECTION
+════════════════════════════════════════ */
+#bi-demo {
+  background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0,200,122,0.05) 0%, transparent 70%);
+}
+.bi-container {
+  width:100%; margin-top:36px;
+  border-radius:20px; overflow:hidden;
+  border:1px solid var(--border-bright);
+  background: rgba(8,8,12,0.8);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 40px 80px rgba(0,0,0,0.5);
+}
+.bi-toolbar {
+  display:flex; align-items:center; gap:7px;
+  padding:12px 18px;
+  background: rgba(15,15,20,0.9);
+  border-bottom:1px solid var(--border);
+}
+.bi-dot-r{width:9px;height:9px;border-radius:50%;background:#FF5F57;box-shadow:0 0 4px #FF5F57;}
+.bi-dot-y{width:9px;height:9px;border-radius:50%;background:#FEBC2E;box-shadow:0 0 4px #FEBC2E;}
+.bi-dot-g{width:9px;height:9px;border-radius:50%;background:#28C840;box-shadow:0 0 4px #28C840;}
+.bi-url {
+  flex:1; background:rgba(255,255,255,0.04); border-radius:6px;
+  padding:5px 12px; font-size:11px; color:var(--muted);
+  font-family: monospace; margin-left:8px;
+  border:1px solid var(--border);
+}
+.bi-frame { width:100%; height:570px; border:none; display:block; }
+
+/* ════════════════════════════════════════
+   ABOUT / CLOSE SECTION
+════════════════════════════════════════ */
+.close-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:44px; align-items:start; }
+.close-card {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(16px);
+  border:1px solid var(--border);
+  border-radius:20px; padding:26px; margin-bottom:14px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.4s;
+}
+.close-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+}
+.close-card:last-child { margin-bottom:0; }
+.close-card:hover { border-color: rgba(0,200,122,0.15); }
+.close-card-title {
+  font-family:var(--font-head); font-size:15px; font-weight:600;
+  margin-bottom:16px; padding-bottom:13px;
+  border-bottom:1px solid var(--border); color: var(--text);
+}
+.info-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 0; border-bottom:1px solid var(--border); font-size:13px;
+}
+.info-row:last-child { border-bottom:none; }
+.info-label { color:var(--muted); }
+.info-val { color:var(--muted-mid); font-weight:500; text-align:right; }
+.info-val.green { color:var(--accent); }
+.contact-block {
+  margin-top:10px; padding:16px;
+  background: linear-gradient(135deg, rgba(0,200,122,0.08), rgba(0,200,122,0.04));
+  border:1px solid rgba(0,200,122,0.2);
+  border-radius:12px; text-align:center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.contact-block:hover {
+  border-color: rgba(0,200,122,0.4);
+  box-shadow: 0 0 20px rgba(0,200,122,0.1);
+}
+.contact-label { font-size:10px; color:var(--accent); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:5px; }
+.contact-val { font-family:var(--font-head); font-size:16px; color:var(--text); font-weight:600; }
+.contact-val a { color:inherit; text-decoration:none; }
+
+/* ════════════════════════════════════════
+   SECTION-SPECIFIC BACKGROUNDS
+════════════════════════════════════════ */
+#career  { background: radial-gradient(ellipse 60% 40% at 80% 50%, rgba(88,86,214,0.04) 0%, transparent 70%); }
+#case1   { background: radial-gradient(ellipse 50% 60% at 20% 50%, rgba(0,200,122,0.04) 0%, transparent 70%); }
+#case2   { background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(100,160,255,0.04) 0%, transparent 70%); }
+#tech    { background: radial-gradient(ellipse 70% 50% at 50% 0%,   rgba(88,86,214,0.04) 0%, transparent 70%); }
+#about   { background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,200,122,0.05) 0%, transparent 70%); }
+
+/* ════════════════════════════════════════
+   APPLE-STYLE SECTION SEPARATOR GLOW
+════════════════════════════════════════ */
+section + section::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+@media(max-width:768px){
+  #side-nav { display:none; }
+  .kpi-grid { grid-template-columns:repeat(2,1fr); }
+  .case-layout,.skills-grid,.close-grid { grid-template-columns:1fr; }
+  .tl-item { grid-template-columns:1fr; }
+  .tl-meta { text-align:left; }
+  section { padding:60px 20px; }
+  #lang-toggle { top:16px; left:16px; }
+  .orb { filter: blur(100px); opacity: 0.5; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Aurora Background ─── -->
+<div id="aurora">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+  <div class="orb orb-5"></div>
+</div>
+
+<div id="progress-bar"></div>
+
+<div id="lang-toggle">
+  <button class="lang-btn active" id="btn-zh" onclick="setLang('zh')">中文</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+
+<nav id="side-nav">
+  <button class="dot active" data-i="0"></button>
+  <button class="dot" data-i="1"></button>
+  <button class="dot" data-i="2"></button>
+  <button class="dot" data-i="3"></button>
+  <button class="dot" data-i="4"></button>
+  <button class="dot" data-i="5"></button>
+  <button class="dot" data-i="6"></button>
+  <button class="dot" data-i="7"></button>
+</nav>
+
+<div id="hint">
+  <span class="t-zh">↑ ↓ 方向键翻页</span>
+  <span class="t-en" style="display:none">↑ ↓ Arrow keys to navigate</span>
+</div>
+
+<!-- ════════ HERO ════════ -->
+<section id="hero">
+  <div class="section-inner" style="text-align:center;">
+    <div class="reveal">
+      <div class="section-label">Business Analyst · Financial Controller</div>
+    </div>
+    <div class="reveal d1">
+      <div class="hero-name">廖祖伟</div>
+      <div class="hero-en">ZUKO LIAO</div>
+    </div>
+    <div class="reveal d2">
+      <p class="hero-tagline">
+        <span class="t-zh">用数据驱动决策 · 9年11个月<br>从成本管控到销售增长，让数字讲述业务故事</span>
+        <span class="t-en" style="display:none">Data-driven decision making · 9+ Years<br>From cost control to revenue growth — making numbers tell the business story</span>
+      </p>
+    </div>
+    <div class="reveal d3">
+      <div class="hero-pills">
+        <span class="pill accent">Power BI</span>
+        <span class="pill"><span class="t-zh">注册会计师 CPA</span><span class="t-en" style="display:none">CPA Certified</span></span>
+        <span class="pill"><span class="t-zh">中级会计师</span><span class="t-en" style="display:none">Intermediate Accountant</span></span>
+        <span class="pill">SAP Key User</span>
+        <span class="pill">SQL · Python · VBA</span>
+        <span class="pill"><span class="t-zh">全英文工作环境</span><span class="t-en" style="display:none">Full English Work Environment</span></span>
+      </div>
+    </div>
+    <div class="reveal d4">
+      <div class="hero-actions">
+        <a href="ZL - R.pdf" class="btn-primary t-zh" download>
+          ↓ &nbsp;<span class="t-zh">下载个人简历</span>
+        </a>
+        <a href="ZL - R.pdf" class="btn-primary t-en" download style="display:none">
+          ↓ &nbsp;<span class="t-en">Download Resume</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="scroll-arrow"></div></div>
+</section>
+
+<!-- ════════ CAREER ════════ -->
+<section id="career">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Work Experience</div>
+      <h2 class="section-title"><span class="t-zh">职业轨迹</span><span class="t-en" style="display:none">Career Journey</span></h2>
+      <p class="section-sub"><span class="t-zh">从制造业到化工、游戏、快消，跨行业财务 BP 经验积累</span><span class="t-en" style="display:none">Manufacturing → Chemical → Gaming → FMCG: Cross-industry Finance BP expertise</span></p>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item current reveal d1">
+        <div class="tl-meta">
+          <div class="tl-period">2022/06 — <span class="t-zh">至今</span><span class="t-en" style="display:none">Present</span></div>
+          <div class="tl-company"><span class="t-zh">广州欧莱雅百库<br>网络科技有限公司</span><span class="t-en" style="display:none">L'Oréal Buycoor<br>Guangzhou</span></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-role">Controller</div>
+          <div class="tl-desc"><span class="t-zh">负责供应链、EBA 及行政板块财务管控，监控 3,500万 EBA 预算；精细化跟踪 100+ 行政项目 PO 与实际支出。作为 NA & CRM 核心财务 BP，管理 47+ 关键 PO 全生命周期，年执行 96 笔跨国 Re-billing。</span><span class="t-en" style="display:none">Oversee SC, EBA, and Admin financial controlling. Monitor ¥35M EBA budget with 100+ project-level PO vs. Actual tracking. Serve as core Finance BP for NA & CRM, managing 47+ key POs and ~96 annual cross-border re-billing transactions.</span></div>
+          <div class="tl-highlight"><span class="t-zh">↑ SAP HANA 升级项目关键用户，主导 UAT 测试与全员培训</span><span class="t-en" style="display:none">↑ SAP HANA Upgrade Key User — led UAT testing & company-wide training rollout</span></div>
+          <div class="tl-tags"><span class="tag">SAP NEO</span><span class="tag">Compass</span><span class="tag">Magnitude</span><span class="tag">Power BI</span><span class="tag">OPEX</span><span class="tag">Re-billing</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal d2">
+        <div class="tl-meta">
+          <div class="tl-period">2021/02 — 2022/05</div>
+          <div class="tl-company"><span class="t-zh">三七互娱<br>37网游业务线</span><span class="t-en" style="display:none">37 Games<br>Business Line</span></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-role"><span class="t-zh">财务分析师</span><span class="t-en" style="display:none">Financial Analyst</span></div>
+          <div class="tl-desc"><span class="t-zh">负责 BP 业务线预算管理与财务流程优化；建立新产品生命周期盈利分析模型，支撑产品上线投放决策；定期编制核心指标追踪体系，为业务部门提供数字可视化支持。</span><span class="t-en" style="display:none">Managed BP business line budgeting and process optimization. Built product lifecycle profitability models to guide go-live and marketing decisions. Developed core KPI tracking providing visual insights for business teams.</span></div>
+          <div class="tl-tags"><span class="tag"><span class="t-zh">预算管理</span><span class="t-en" style="display:none">Budgeting</span></span><span class="tag">ROI Model</span><span class="tag"><span class="t-zh">盈利分析</span><span class="t-en" style="display:none">P&L Analysis</span></span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal d3">
+        <div class="tl-meta">
+          <div class="tl-period">2019/03 — 2021/02</div>
+          <div class="tl-company"><span class="t-zh">好来化工（中山）<br>有限公司</span><span class="t-en" style="display:none">Hawley & Hazel Chemical Co.<br>Zhongshan</span></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-role"><span class="t-zh">业务分析主管</span><span class="t-en" style="display:none">Business Analysis Supervisor</span></div>
+          <div class="tl-desc"><span class="t-zh">领导团队进行区域毛利分析与费用管控；用 Power BI + DAX 建立日常运营仪表板；统筹全国经销商月/季 KPI 管控；用 SQL 抽取 SAP BW 大数据进行项目管理。</span><span class="t-en" style="display:none">Led regional gross margin analysis and expense control. Built daily operational dashboards with Power BI & DAX. Coordinated national distributor KPI framework (monthly/quarterly). Used SQL to extract SAP BW data for project management.</span></div>
+          <div class="tl-highlight"><span class="t-zh">↑ SME 客户增长 22%，主推产品铺货率达 71%</span><span class="t-en" style="display:none">↑ SME customers +22%, core product channel coverage 71%</span></div>
+          <div class="tl-tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">SQL / BW</span><span class="tag">VBA</span><span class="tag"><span class="t-zh">渠道 KPI</span><span class="t-en" style="display:none">Channel KPI</span></span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal d4">
+        <div class="tl-meta">
+          <div class="tl-period">2016/05 — 2019/03</div>
+          <div class="tl-company"><span class="t-zh">广州松下空调器<br>有限公司</span><span class="t-en" style="display:none">Panasonic Air-Con<br>Guangzhou</span></div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-role"><span class="t-zh">财务分析员（管培生）</span><span class="t-en" style="display:none">Financial Analyst (Management Trainee)</span></div>
+          <div class="tl-desc"><span class="t-zh">负责空调部件成本分析与产品定价模型；主导物料、工时、物流成本差异分析；协助制定内控流程，支持 SOX 审查；优化库存与现金流管理。</span><span class="t-en" style="display:none">Managed AC component cost analysis and product pricing models. Led variance analysis across materials, labor, and logistics costs. Assisted in internal control design and SOX compliance. Optimized inventory and cash flow management.</span></div>
+          <div class="tl-tags"><span class="tag"><span class="t-zh">成本核算</span><span class="t-en" style="display:none">Cost Accounting</span></span><span class="tag">Standard Cost</span><span class="tag">SOX</span><span class="tag">ERP</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════ IMPACT ════════ -->
+<section id="impact">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Measurable Impact</div>
+      <h2 class="section-title"><span class="t-zh">用数字说话</span><span class="t-en" style="display:none">Results That Speak</span></h2>
+      <p class="section-sub"><span class="t-zh">跨公司沉淀的可量化成果，代表我对业务的真实影响力</span><span class="t-en" style="display:none">Quantifiable outcomes across companies — representing real business impact</span></p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card reveal d1">
+        <div class="kpi-cat"><span class="t-zh">效率 · 欧莱雅</span><span class="t-en" style="display:none">Efficiency · L'Oréal</span></div>
+        <div class="kpi-num"><span class="counter" data-target="75">0</span>%</div>
+        <div class="kpi-label"><span class="t-zh">行政报告工作量下降</span><span class="t-en" style="display:none">Admin Reporting time reduced</span></div>
+      </div>
+      <div class="kpi-card reveal d2">
+        <div class="kpi-cat"><span class="t-zh">准确率 · 欧莱雅</span><span class="t-en" style="display:none">Accuracy · L'Oréal</span></div>
+        <div class="kpi-num"><span class="counter" data-target="0" data-from="10">10</span></div>
+        <div class="kpi-label"><span class="t-zh">行政报告人工错误（自动化后）</span><span class="t-en" style="display:none">Manual errors/month post-automation</span></div>
+      </div>
+      <div class="kpi-card reveal d3">
+        <div class="kpi-cat"><span class="t-zh">规模 · 欧莱雅</span><span class="t-en" style="display:none">Scale · L'Oréal</span></div>
+        <div class="kpi-num"><span class="counter" data-target="134">0</span>+</div>
+        <div class="kpi-label"><span class="t-zh">行政项目实时监控</span><span class="t-en" style="display:none">Admin projects tracked live</span></div>
+      </div>
+      <div class="kpi-card reveal d1">
+        <div class="kpi-cat"><span class="t-zh">增长 · 好来化工</span><span class="t-en" style="display:none">Growth · Haolai</span></div>
+        <div class="kpi-num">+<span class="counter" data-target="22">0</span>%</div>
+        <div class="kpi-label"><span class="t-zh">SME 中小客户增长</span><span class="t-en" style="display:none">SME customer growth</span></div>
+      </div>
+      <div class="kpi-card reveal d2">
+        <div class="kpi-cat"><span class="t-zh">覆盖率 · 好来化工</span><span class="t-en" style="display:none">Coverage · Haolai</span></div>
+        <div class="kpi-num"><span class="counter" data-target="71">0</span>%</div>
+        <div class="kpi-label"><span class="t-zh">主推产品全渠道铺货率</span><span class="t-en" style="display:none">Core product channel coverage</span></div>
+      </div>
+      <div class="kpi-card reveal d3">
+        <div class="kpi-cat"><span class="t-zh">规模 · 欧莱雅 BP</span><span class="t-en" style="display:none">Volume · L'Oréal BP</span></div>
+        <div class="kpi-num"><span class="counter" data-target="96">0</span></div>
+        <div class="kpi-label"><span class="t-zh">跨国 Re-billing 笔 / 年</span><span class="t-en" style="display:none">Cross-border re-billings / year</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CASE 1 ════════ -->
+<section id="case1">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label"><span class="t-zh">案例 01 · 欧莱雅百库</span><span class="t-en" style="display:none">Case 01 · L'Oréal</span></div>
+      <h2 class="section-title"><span class="t-zh">成本管控<br>智能化改造</span><span class="t-en" style="display:none">Cost Control<br>Intelligence Rebuild</span></h2>
+      <p class="section-sub"><span class="t-zh">将 100+ 个分散行政项目，升级为实时可视化数字管控体系</span><span class="t-en" style="display:none">Transforming 100+ scattered admin projects into a real-time digital control system</span></p>
+    </div>
+    <div class="case-layout">
+      <div>
+        <div class="case-block reveal d1">
+          <div class="case-block-label">Problem</div>
+          <p><span class="t-zh">超 100 个行政/物业项目成本跟踪完全依赖人工，报表制作耗时、数据滞后、错误频发，大促期间难以实时监控 3,500 万 EBA 预算燃耗情况。</span><span class="t-en" style="display:none">Cost tracking across 100+ admin/property projects was fully manual — slow reports, stale data, frequent entry errors, with no real-time visibility on the ¥35M EBA budget during peak campaign periods.</span></p>
+        </div>
+        <div class="case-block reveal d2">
+          <div class="case-block-label">Action</div>
+          <p><span class="t-zh">搭建自动化"PO vs. 实际支出"对比追踪系统，整合 SAP 数据源，开发 Power BI 实时仪表板；配置 Fiori 视图与分摊规则，设计异常预警机制与标准 SOP，实现一键刷新全量数据呈现。</span><span class="t-en" style="display:none">Built an automated PO vs. Actual tracking system integrating SAP data sources into Power BI dashboards. Configured Fiori views and allocation rules, designed anomaly alerts and a standard SOP for one-click full-data refresh.</span></p>
+        </div>
+        <div class="case-block reveal d3">
+          <div class="case-block-label">Tools</div>
+          <p>SAP Fiori · Compass · Power BI · Excel Power Query · MDM</p>
+        </div>
+      </div>
+      <div>
+        <div class="metric-row reveal d1"><div class="metric-icon">⏱</div><div><div class="metric-val">75%</div><div class="metric-desc"><span class="t-zh">报表制作时间缩短</span><span class="t-en" style="display:none">Reporting time reduction</span></div></div></div>
+        <div class="metric-row reveal d2"><div class="metric-icon">✓</div><div><div class="metric-val">0</div><div class="metric-desc"><span class="t-zh">月度人工录入错误（自动化后）</span><span class="t-en" style="display:none">Manual errors/month post-automation</span></div></div></div>
+        <div class="metric-row reveal d3"><div class="metric-icon">📊</div><div><div class="metric-val">134+</div><div class="metric-desc"><span class="t-zh">项目纳入实时监控范围</span><span class="t-en" style="display:none">Projects under real-time monitoring</span></div></div></div>
+        <div class="metric-row reveal d4"><div class="metric-icon">💰</div><div><div class="metric-val">¥3,500万</div><div class="metric-desc"><span class="t-zh">EBA 预算实时管控规模</span><span class="t-en" style="display:none">EBA budget under live control</span></div></div></div>
+        <div class="metric-row reveal d5"><div class="metric-icon">🔗</div><div><div class="metric-val">47+</div><div class="metric-desc"><span class="t-zh">跨国 PO 全生命周期管理</span><span class="t-en" style="display:none">Cross-border POs managed end-to-end</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CASE 2 ════════ -->
+<section id="case2">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label"><span class="t-zh">案例 02 · 好来化工</span><span class="t-en" style="display:none">Case 02 · Haolai Chemical</span></div>
+      <h2 class="section-title"><span class="t-zh">全国渠道 KPI<br>增长驱动</span><span class="t-en" style="display:none">National Channel KPI<br>Growth Engine</span></h2>
+      <p class="section-sub"><span class="t-zh">从区域盲区到数据透明，推动经销商渠道系统性增长</span><span class="t-en" style="display:none">From regional blind spots to full data transparency — driving systematic channel growth</span></p>
+    </div>
+    <div class="case-layout">
+      <div>
+        <div class="case-block reveal d1">
+          <div class="case-block-label">Problem</div>
+          <p><span class="t-zh">全国各区域经销商缺乏统一衡量标准，数据孤岛严重，无法实时对比渠道绩效，管理层难以对铺货率、客户结构、费效比进行及时干预。</span><span class="t-en" style="display:none">No unified measurement standard for national distributors. Severe data silos across regions made real-time performance comparison impossible, leaving management without timely levers to act on coverage, customer structure, or ROI efficiency.</span></p>
+        </div>
+        <div class="case-block reveal d2">
+          <div class="case-block-label">Action</div>
+          <p><span class="t-zh">设计全国经销商月/季 KPI 框架（事前规则、事中跟踪、事后分析）；用 SQL 抽取 SAP BW 大数据；在 Power BI 中搭建目标达成实时模拟模型与多维 DAX 分析；提供云数据协同，覆盖全渠道区域追踪。</span><span class="t-en" style="display:none">Designed a national distributor KPI framework (pre-setting rules, in-flight tracking, post-analysis). Extracted SAP BW data via SQL. Built real-time target simulation models in Power BI with multi-dimensional DAX. Deployed cloud data collaboration for all-regional channel tracking.</span></p>
+        </div>
+        <div class="case-block reveal d3">
+          <div class="case-block-label">Tools</div>
+          <p>SQL · SAP BW · Power BI · DAX · VBA · <span class="t-zh">云数据协同</span><span class="t-en" style="display:none">Cloud Data Collaboration</span></p>
+        </div>
+      </div>
+      <div>
+        <div class="metric-row reveal d1"><div class="metric-icon">📈</div><div><div class="metric-val">+22%</div><div class="metric-desc"><span class="t-zh">中小型 SME 客户数量增长</span><span class="t-en" style="display:none">SME customer count growth</span></div></div></div>
+        <div class="metric-row reveal d2"><div class="metric-icon">🏪</div><div><div class="metric-val">71%</div><div class="metric-desc"><span class="t-zh">主推产品全国渠道铺货率</span><span class="t-en" style="display:none">National core product distribution rate</span></div></div></div>
+        <div class="metric-row reveal d3"><div class="metric-icon">🗺</div><div><div class="metric-val"><span class="t-zh">全国级</span><span class="t-en" style="display:none">National</span></div><div class="metric-desc"><span class="t-zh">渠道下沉与区域覆盖规模</span><span class="t-en" style="display:none">Channel penetration & regional scale</span></div></div></div>
+        <div class="metric-row reveal d4"><div class="metric-icon">🔄</div><div><div class="metric-val"><span class="t-zh">月/季</span><span class="t-en" style="display:none">Monthly/Quarterly</span></div><div class="metric-desc"><span class="t-zh">KPI 管控周期，实时模拟达成</span><span class="t-en" style="display:none">KPI cycles with real-time target simulation</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ TECH ════════ -->
+<section id="tech">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Technical Arsenal</div>
+      <h2 class="section-title"><span class="t-zh">技术能力矩阵</span><span class="t-en" style="display:none">Skills & Tools</span></h2>
+      <p class="section-sub"><span class="t-zh">自学驱动，从财务专业到数据工程，持续扩展技能边界</span><span class="t-en" style="display:none">Self-driven learner — expanding from finance depth to data engineering breadth</span></p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category reveal d1">
+        <div class="skill-cat-title">📊 <span class="t-zh">数据分析 & 可视化</span><span class="t-en" style="display:none">Data Analysis & Visualization</span></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>Power BI + DAX</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>Excel <span class="t-zh">高级建模</span><span class="t-en" style="display:none">Advanced Modeling</span></span><div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>SQL / SAP BW</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>Python</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="65"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>VBA <span class="t-zh">自动化</span><span class="t-en" style="display:none">Automation</span></span><div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div></div>
+      </div>
+      <div class="skill-category reveal d2">
+        <div class="skill-cat-title">🏢 ERP & <span class="t-zh">企业系统</span><span class="t-en" style="display:none">Enterprise Systems</span></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>SAP (Fiori / NEO / S4)</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="88"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>Compass / Magnitude</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>MDM</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>Access</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="70"></div></div></div>
+      </div>
+      <div class="skill-category reveal d3">
+        <div class="skill-cat-title">💼 <span class="t-zh">财务专业能力</span><span class="t-en" style="display:none">Finance Expertise</span></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span><span class="t-zh">预算管理 & 财务 BP</span><span class="t-en" style="display:none">Budgeting & Finance BP</span></span><div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span><span class="t-zh">成本核算与分析</span><span class="t-en" style="display:none">Cost Accounting & Analysis</span></span><div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>OPEX / CAPEX</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span>ROI / LCA <span class="t-zh">建模</span><span class="t-en" style="display:none">Modeling</span></span><div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div></div>
+        <div class="skill-item"><span class="skill-name"><span class="skill-dot"></span><span class="t-zh">内控 / SOX</span><span class="t-en" style="display:none">Internal Control / SOX</span></span><div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div></div>
+      </div>
+      <div class="skill-category reveal d4">
+        <div class="skill-cat-title">🎓 <span class="t-zh">证书与语言</span><span class="t-en" style="display:none">Credentials & Languages</span></div>
+        <div class="certs-row">
+          <div class="cert-item"><div class="cert-icon">📜</div><div><div class="cert-name"><span class="t-zh">注册会计师</span><span class="t-en" style="display:none">CPA</span></div><div class="cert-sub">CICPA · 2020</div></div></div>
+          <div class="cert-item"><div class="cert-icon">📋</div><div><div class="cert-name"><span class="t-zh">中级会计师</span><span class="t-en" style="display:none">Intermediate Accountant</span></div><div class="cert-sub"><span class="t-zh">中级职称</span><span class="t-en" style="display:none">Professional Title</span></div></div></div>
+        </div>
+        <div class="lang-row"><span class="lang-name"><span class="t-zh">英语</span><span class="t-en" style="display:none">English</span></span><div class="lang-stars"><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div></div></div>
+        <div class="lang-row"><span class="lang-name"><span class="t-zh">普通话</span><span class="t-en" style="display:none">Mandarin</span></span><div class="lang-stars"><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div></div></div>
+        <div class="lang-row"><span class="lang-name"><span class="t-zh">粤语</span><span class="t-en" style="display:none">Cantonese</span></span><div class="lang-stars"><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div><div class="star lit"></div></div></div>
+        <div class="lang-row"><span class="lang-name"><span class="t-zh">日语</span><span class="t-en" style="display:none">Japanese</span></span><div class="lang-stars"><div class="star lit"></div><div class="star lit"></div><div class="star"></div><div class="star"></div><div class="star"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ BI DEMO ════════ -->
+<section id="bi-demo">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Live Dashboard Demo</div>
+      <h2 class="section-title"><span class="t-zh">Power BI 实时演示</span><span class="t-en" style="display:none">Power BI Live Demo</span></h2>
+      <p class="section-sub"><span class="t-zh">经营数据多维度组合分析与监控，实时发现异常与业务亮点</span><span class="t-en" style="display:none">Multi-dimensional business data analysis — real-time anomaly detection and insight discovery</span></p>
+    </div>
+    <div class="reveal d1">
+      <div class="bi-container">
+        <div class="bi-toolbar">
+          <div class="bi-dot-r"></div><div class="bi-dot-y"></div><div class="bi-dot-g"></div>
+          <div class="bi-url">app.powerbi.com &nbsp;·&nbsp; <span class="t-zh">经营分析仪表盘</span><span class="t-en" style="display:none">Business Intelligence Dashboard</span></div>
+        </div>
+        <iframe class="bi-frame"
+          src="https://app.powerbi.com/view?r=eyJrIjoiYjMyZmViODEtYWY4Mi00MzcwLWFhODYtNWExNWRjN2I3ZjZlIiwidCI6ImZlNjhmY2Y5LTI2MGEtNDgxZi1iNjAzLWIyNGNiMjA0MjIyMiIsImMiOjZ9&pageName=ReportSection45a35629207192d9414b"
+          allowfullscreen="true" title="Power BI Dashboard"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ABOUT ════════ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title"><span class="t-zh">关于我</span><span class="t-en" style="display:none">About Me</span></h2>
+      <p class="section-sub"><span class="t-zh">财务专业深度 × 数据技术广度，成为真正的业务驱动型 Finance BP</span><span class="t-en" style="display:none">Finance depth × Data breadth — a genuinely business-driven Finance BP</span></p>
+    </div>
+    <div class="close-grid">
+      <div>
+        <div class="close-card reveal d1">
+          <div class="close-card-title"><span class="t-zh">基本信息</span><span class="t-en" style="display:none">Profile</span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">姓名</span><span class="t-en" style="display:none">Name</span></span><span class="info-val">廖祖伟 · Zuko Liao</span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">年龄</span><span class="t-en" style="display:none">Age</span></span><span class="info-val"><span class="t-zh">33岁</span><span class="t-en" style="display:none">33</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">工作年限</span><span class="t-en" style="display:none">Experience</span></span><span class="info-val"><span class="t-zh">9年11个月</span><span class="t-en" style="display:none">9 Years 11 Months</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">学历</span><span class="t-en" style="display:none">Education</span></span><span class="info-val"><span class="t-zh">本科 · 财务管理</span><span class="t-en" style="display:none">B.Sc. Financial Management</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">所在地</span><span class="t-en" style="display:none">Location</span></span><span class="info-val"><span class="t-zh">广州 · 天河区</span><span class="t-en" style="display:none">Guangzhou, China</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">求职状态</span><span class="t-en" style="display:none">Status</span></span><span class="info-val green"><span class="t-zh">在职，看看新机会</span><span class="t-en" style="display:none">Employed · Open to opportunities</span></span></div>
+        </div>
+        <div class="close-card reveal d2">
+          <div class="close-card-title"><span class="t-zh">求职期望</span><span class="t-en" style="display:none">Job Target</span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">目标岗位①</span><span class="t-en" style="display:none">Role ①</span></span><span class="info-val"><span class="t-zh">销售业务分析</span><span class="t-en" style="display:none">Sales Business Analyst</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">目标岗位②</span><span class="t-en" style="display:none">Role ②</span></span><span class="info-val"><span class="t-zh">财务分析经理/主管</span><span class="t-en" style="display:none">Finance Analysis Manager</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">意向城市</span><span class="t-en" style="display:none">Cities</span></span><span class="info-val"><span class="t-zh">深圳 / 广州</span><span class="t-en" style="display:none">Shenzhen / Guangzhou</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">薪资期望</span><span class="t-en" style="display:none">Salary Target</span></span><span class="info-val green">23–35k × 14/15<span class="t-zh"> 薪</span><span class="t-en" style="display:none"> months</span></span></div>
+        </div>
+      </div>
+      <div>
+        <div class="close-card reveal d3">
+          <div class="close-card-title"><span class="t-zh">核心优势</span><span class="t-en" style="display:none">Key Strengths</span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">跨行业经验</span><span class="t-en" style="display:none">Cross-industry</span></span><span class="info-val"><span class="t-zh">制造·化工·游戏·快消</span><span class="t-en" style="display:none">Mfg · Chemical · Gaming · FMCG</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">双重角色</span><span class="t-en" style="display:none">Dual Expertise</span></span><span class="info-val"><span class="t-zh">财务深度 + 数据技术广度</span><span class="t-en" style="display:none">Finance depth + Data breadth</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">自学能力</span><span class="t-en" style="display:none">Self-learning</span></span><span class="info-val"><span class="t-zh">CPA + Python/SQL/VBA 均自学</span><span class="t-en" style="display:none">CPA + Python/SQL/VBA self-taught</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">语言优势</span><span class="t-en" style="display:none">Languages</span></span><span class="info-val"><span class="t-zh">全英文工作环境经验</span><span class="t-en" style="display:none">Full English work experience</span></span></div>
+          <div class="info-row"><span class="info-label"><span class="t-zh">系统专长</span><span class="t-en" style="display:none">Systems</span></span><span class="info-val">SAP Key User · Power BI</span></div>
+        </div>
+        <div class="close-card reveal d4">
+          <div class="close-card-title"><span class="t-zh">联系方式</span><span class="t-en" style="display:none">Contact</span></div>
+          <div class="contact-block" style="margin-bottom:10px;">
+            <div class="contact-label"><span class="t-zh">手机 / 微信</span><span class="t-en" style="display:none">Phone / WeChat</span></div>
+            <div class="contact-val">177 8870 5350</div>
+          </div>
+          <div class="contact-block">
+            <div class="contact-label">Email</div>
+            <div class="contact-val"><a href="mailto:liaozw93@163.com">liaozw93@163.com</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal d5" style="text-align:center; margin-top:44px; color:var(--muted); font-size:11px; letter-spacing:1.5px;">
+      ZUKO LIAO · BUSINESS ANALYST & FINANCIAL CONTROLLER
+    </div>
+  </div>
+</section>
+
+<script>
+/* ─── Language ─── */
+let LANG = 'zh';
+function setLang(lang) {
+  LANG = lang;
+  document.getElementById('btn-zh').classList.toggle('active', lang==='zh');
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.querySelectorAll('.t-zh').forEach(el => el.style.display = lang==='zh' ? '' : 'none');
+  document.querySelectorAll('.t-en').forEach(el => el.style.display = lang==='en' ? '' : 'none');
+}
+
+/* ─── Scroll parallax for aurora orbs ─── */
+window.addEventListener('scroll', () => {
+  const s = window.scrollY * 0.04;
+  const orbs = document.querySelectorAll('.orb');
+  orbs[0] && (orbs[0].style.transform = `translateY(${s * 0.8}px)`);
+  orbs[1] && (orbs[1].style.transform = `translateY(${-s * 0.5}px)`);
+  orbs[2] && (orbs[2].style.transform = `translateY(${-s * 0.3}px)`);
+  orbs[3] && (orbs[3].style.transform = `translateY(${s * 0.6}px)`);
+  orbs[4] && (orbs[4].style.transform = `translateY(${s * 0.4}px)`);
+}, { passive: true });
+
+/* ─── Sections ─── */
+const SEC_IDS = ['hero','career','impact','case1','case2','tech','bi-demo','about'];
+const secEls = SEC_IDS.map(id => document.getElementById(id));
+const dots = document.querySelectorAll('.dot');
+let current = 0;
+let countersRun = false, barsRun = false;
+
+function updateNav(i) {
+  current = i;
+  dots.forEach((d,j) => d.classList.toggle('active', i===j));
+  document.getElementById('progress-bar').style.width = (i/(SEC_IDS.length-1)*100)+'%';
+}
+
+/* ─── Reveal observer ─── */
+const revObs = new IntersectionObserver(
+  es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* ─── Section observer ─── */
+const secObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if(!e.isIntersecting) return;
+    const i = SEC_IDS.indexOf(e.target.id);
+    if(i !== -1) updateNav(i);
+    if(e.target.id === 'impact' && !countersRun){ countersRun = true; runCounters(); animateKpiCards(); }
+    if(e.target.id === 'tech'   && !barsRun)   { barsRun   = true; runSkillBars(); }
+  });
+}, { threshold: 0.35 });
+secEls.forEach(el => el && secObs.observe(el));
+
+/* ─── Animated counters ─── */
+function runCounters() {
+  document.querySelectorAll('.counter').forEach(el => {
+    const target = +el.dataset.target;
+    const from   = el.dataset.from !== undefined ? +el.dataset.from : 0;
+    const dur = 1600, t0 = performance.now();
+    (function tick(now){
+      const p = Math.min((now - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (target - from) * ease);
+      if(p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    })(performance.now());
+  });
+}
+
+function animateKpiCards() {
+  document.querySelectorAll('.kpi-card').forEach((c, i) =>
+    setTimeout(() => c.classList.add('lit'), i * 180));
+}
+
+/* ─── Skill bars ─── */
+function runSkillBars() {
+  document.querySelectorAll('.skill-bar').forEach(b =>
+    setTimeout(() => { b.style.width = b.dataset.width + '%'; }, 150));
+}
+
+/* ─── Dot nav ─── */
+dots.forEach((d, i) =>
+  d.addEventListener('click', () => secEls[i].scrollIntoView({ behavior: 'smooth' })));
+
+/* ─── Keyboard nav ─── */
+window.addEventListener('keydown', e => {
+  if(e.key === 'ArrowDown' || e.key === 'PageDown'){
+    e.preventDefault();
+    if(current < SEC_IDS.length - 1) secEls[current + 1].scrollIntoView({ behavior: 'smooth' });
+  } else if(e.key === 'ArrowUp' || e.key === 'PageUp'){
+    e.preventDefault();
+    if(current > 0) secEls[current - 1].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+/* ─── Init ─── */
+setLang('zh');
+</script>
+</body>
+</html>
